@@ -31,7 +31,6 @@ function makeColumn(rootCol, fraction) {
 
   function getWidth(viewport, gutter) {
     var w = getRelativeWidth();
-    console.log(w)
     return (viewport * w[0]) + (gutter * w[1]);
   }
 
