@@ -1,5 +1,4 @@
 
-
 function fractionToArray(f) {
   f = f.split('/');
   f[0] = parseInt(f[0]);
@@ -7,11 +6,13 @@ function fractionToArray(f) {
   return f;
 }
 
-function makeColumn(rootCol, width) {
+function makeColumn(rootCol, fraction) {
+  var width = [1, 0];
+
   var col = {
-    root: rootCol || null,
     setWidth: setWidth,
-    getWidth: getWidth
+    getWidth: getWidth,
+    getRelativeWidth: getRelativeWidth
   };
 
   function setWidth(v) {
@@ -21,18 +22,20 @@ function makeColumn(rootCol, width) {
     return col;
   }
 
-  function getWidth(gutter) {
-    var denominatior = ( - 1);
-    var viewport = rootCol ? rootCol.getWidth() : [1, 0];
-    var k = viewport[0];
-    var g = viewport[1];
-    return [
-      k / col.chunks,
-      (g - col.chunks + 1) / col.chunks
-    ];
+  function getRelativeWidth() {
+    var K_G = rootCol ? rootCol.getRelativeWidth() : width;
+    width[0] = K_G[0] / col.chunks;
+    width[1] = (K_G[1] - col.chunks + 1) / col.chunks;
+    return width;
   }
 
-  col.setWidth(width);
+  function getWidth(viewport, gutter) {
+    var w = getRelativeWidth();
+    console.log(w)
+    return (viewport * w[0]) + (gutter * w[1]);
+  }
+
+  col.setWidth(fraction);
   return col;
 }
 
@@ -42,24 +45,13 @@ var a_b = makeColumn(a, '1/2');
 var a_a_a = makeColumn(a_a);
 var a_b_a = makeColumn(a_b, '1/2');
 
-
-// var col = {
-//   width: 10,
-//   subscr
-// }
-
-// var childA = Object.create(col);
-// var childB = Object.create(col);
+var SCREEN = 1000;
+var GUTTER = 20;
 
 console.log();
-console.log('a', a.getWidth(10));
-console.log('a_a', a_a.getWidth(10));
-console.log('a_b', a_a.getWidth(10));
-console.log('a_a_a', a_a_a.getWidth(10));
-console.log('a_b_a', a_b_a.getWidth(10));
+console.log('a', a.getWidth(SCREEN, GUTTER));
+console.log('a_a', a_a.getWidth(SCREEN, GUTTER));
+console.log('a_b', a_a.getWidth(SCREEN, GUTTER));
+console.log('a_a_a', a_a_a.getWidth(SCREEN, GUTTER));
+console.log('a_b_a', a_b_a.getWidth(SCREEN, GUTTER));
 console.log();
-
-
-// window is 900
-
-// row
