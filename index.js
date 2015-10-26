@@ -40,7 +40,7 @@ function makeColumn(rootCol, fraction) {
 }
 
 var a = makeColumn();
-var a_a = makeColumn(a, '1/2');
+var a_a = makeColumn(a.getr, '1/2');
 var a_b = makeColumn(a, '1/2');
 var a_a_a = makeColumn(a_a);
 var a_b_a = makeColumn(a_b, '1/2');
