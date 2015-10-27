@@ -16,46 +16,6 @@ module.exports = function makeColumn(rootCol, fraction) {
     f = fractionToArray(fraction || '1/1');
 
     col.updateWidth = function () {
-
-      // a is numerator
-      // b is denominator
-      // x is column width
-
-
-      // total = K + G;
-      // total = bx + g(b - 1)
-
-      // total = bx + bg - g
-      // total + g - bg = bx;
-
-      // x = total/b + g/b - g;
-
-      // span = (a / b * (total - g(b - 1))) <- column material
-      //        + g(a - 1) <- column material
-
-
-      // (a / b * (total - bg + g)) + (g(a - 1))
-      // a/b*total - abg/b + g/b + (ag - g))
-      
-
-      // (at/b - ag + g/b) + ag - g
-      // at/b + g/b - g
-
-      // (a (bx + bg - g) / b) + g/b -g
-      // ax + ag -g/b + g/b - g
-      // span = ax + ag - g
-      // 
-
-      // span = a(total/b + g/b - g) + ag - g
-      // span = total*a/b + a*g/b - ag + ag - g
-      // span = total*a/b + a*g/b - g
-
-      // span = a/b[K,G] + a/b[0,1] - [0,1]
-
-      // [Ka/b, Ga/b + a/b - 1]
-
-      // console.log((rootCol.G * f[0] / f[1]) + (f[0] / f[1]) - 1);
-
       col.K = rootCol.K * f[0] / f[1];
       col.G = (rootCol.G * f[0] / f[1]) + (f[0] / f[1]) - 1;
     }
