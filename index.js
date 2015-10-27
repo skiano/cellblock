@@ -7,8 +7,10 @@ module.exports = function makeColumn(rootCol, fraction) {
     children: []
   };
 
+  var f;
+
   col.setWidth = function (fraction) {
-    var f = fractionToArray(fraction || '1/1');
+    f = fractionToArray(fraction || '1/1');
 
     col.updateWidth = function () {
       col.K = rootCol.K * f[0] / f[1];
@@ -22,6 +24,10 @@ module.exports = function makeColumn(rootCol, fraction) {
         child.updateWidth();
       });
     }
+  }
+
+  col.getFraction = function () {
+    return f;
   }
 
   col.getWidth = function (viewport, gutter) {
