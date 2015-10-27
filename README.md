@@ -1,8 +1,10 @@
-# cellblock
+# Cellblock
 
-A function that helps understand the shape and dimensions of a grid
+A function to help you understand the relative size of columns in a grid.
 
-## usage
+## Usage
+
+Without arguments, `cellblock()` returns a root column (the outer grid). When you create more columns you specify what column you want to insert them into like so `cellblock(targetColumn)`.
 
 ```js
 import cellblock from 'cellblock'
