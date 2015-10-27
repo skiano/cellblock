@@ -6,51 +6,84 @@ function fractionToArray(f) {
   return f;
 }
 
-function makeColumn(rootCol, fraction) {
-  var width = [1, 0];
 
+function makeColumn(rootCol, fraction) {
+  rootCol = rootCol || {K: 1, G: 0, depth: 0, children: []};
+  
   var col = {
-    setWidth: setWidth,
-    getWidth: getWidth,
-    getRelativeWidth: getRelativeWidth
+    depth: rootCol.depth + 1, 
+    children: []
   };
 
-  function setWidth(v) {
-    v = fractionToArray(v || '1/1');
-    col.width = v[0] / v[1];
-    col.chunks = v[1];
-    return col;
+  var f;
+
+  col.setWidth = function (fraction) {
+    f = fractionToArray(fraction || '1/1');
+
+    col.updateWidth = function () {
+      col.K = rootCol.K / f[1];
+      col.G = (rootCol.G - f[1] + 1) / f[1];
+    }
+    
+    col.updateWidth();
+
+    if (col.children.length) {
+      col.children.map(function (child) {
+        child.updateWidth();
+      });
+    }
   }
 
-  function getRelativeWidth() {
-    var K_G = rootCol ? rootCol.getRelativeWidth() : width;
-    width[0] = K_G[0] / col.chunks;
-    width[1] = (K_G[1] - col.chunks + 1) / col.chunks;
-    return width;
+  col.getWidth = function (viewport, gutter) {
+    return (viewport * col.K) + (gutter * col.G);
   }
 
-  function getWidth(viewport, gutter) {
-    var w = getRelativeWidth();
-    return (viewport * w[0]) + (gutter * w[1]);
+  col.detach = function () {
+    rootCol.children.splice(rootCol.children.indexOf(col), 1);
   }
 
+  rootCol.children.push(col);
   col.setWidth(fraction);
   return col;
 }
 
 var a = makeColumn();
-var a_a = makeColumn(a.getr, '1/2');
-var a_b = makeColumn(a, '1/2');
-var a_a_a = makeColumn(a_a);
-var a_b_a = makeColumn(a_b, '1/2');
+  var a_a = makeColumn(a, '1/2');
+    var a_a_a = makeColumn(a_a);
+    var a_a_a_a = makeColumn(a_a_a, '1/2');
+    var a_a_a_b = makeColumn(a_a_a, '1/2');
+  var a_b = makeColumn(a, '1/2');
+    var a_b_a = makeColumn(a_b, '1/2');
+    var a_b_b = makeColumn(a_b, '1/2');
 
-var SCREEN = 1000;
+
+
+
+
+var SCREEN = 1280;
 var GUTTER = 20;
 
 console.log();
-console.log('a', a.getWidth(SCREEN, GUTTER));
-console.log('a_a', a_a.getWidth(SCREEN, GUTTER));
-console.log('a_b', a_a.getWidth(SCREEN, GUTTER));
-console.log('a_a_a', a_a_a.getWidth(SCREEN, GUTTER));
-console.log('a_b_a', a_b_a.getWidth(SCREEN, GUTTER));
+printTree(a, SCREEN, GUTTER);
 console.log();
+
+a_b.detach();
+
+console.log();
+printTree(a, SCREEN, GUTTER);
+console.log();
+
+// console.log(a.children[0].children)
+
+function printTree(col, viewport, gutter) {
+  console.log(' ',repeat('|-', col.depth) + col.getWidth(viewport, gutter))
+  col.children.forEach(function (child) {
+    printTree(child, viewport, gutter);
+  });
+}
+
+function repeat(char, n) {
+  return Array(n).join(char);
+}
+
+
