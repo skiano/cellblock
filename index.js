@@ -18,7 +18,7 @@ function makeColumn(rootCol, fraction) {
     var f = fractionToArray(fraction || '1/1');
 
     col.updateWidth = function () {
-      col.K = rootCol.K / f[1];
+      col.K = rootCol.K * f[0] / f[1];
       col.G = (rootCol.G - f[1] + 1) / f[1];
     }
     
@@ -51,14 +51,14 @@ var a = makeColumn();
     var a_a_a_a = makeColumn(a_a_a, '1/2');
     var a_a_a_b = makeColumn(a_a_a, '1/2');
   var a_b = makeColumn(a, '1/2');
-    var a_b_a = makeColumn(a_b, '1/2');
-    var a_b_b = makeColumn(a_b, '1/2');
+    var a_b_a = makeColumn(a_b, '1/4');
+    var a_b_b = makeColumn(a_b, '3/4');
 
 
 
 
 
-var SCREEN = 1280;
+var SCREEN = 1300;
 var GUTTER = 20;
 
 console.log();
