@@ -6,7 +6,6 @@ function fractionToArray(f) {
   return f;
 }
 
-
 function makeColumn(rootCol, fraction) {
   rootCol = rootCol || {K: 1, G: 0, depth: 0, children: []};
   
@@ -15,10 +14,8 @@ function makeColumn(rootCol, fraction) {
     children: []
   };
 
-  var f;
-
   col.setWidth = function (fraction) {
-    f = fractionToArray(fraction || '1/1');
+    var f = fractionToArray(fraction || '1/1');
 
     col.updateWidth = function () {
       col.K = rootCol.K / f[1];
@@ -44,7 +41,7 @@ function makeColumn(rootCol, fraction) {
 
   col.setWidth(fraction);
   rootCol.children.push(col);
-  
+
   return col;
 }
 
