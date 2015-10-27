@@ -9,15 +9,20 @@ Without arguments, `cellblock()` returns a root column (the outer grid). When yo
 ```js
 import cellblock from 'cellblock'
 
-const rootColumn = cellblock(); // calling with no arguments makes a root
-const childColumn_A = cellblock(rootColumn, '1/2') // nests a column inside the root that is 1/2
-const childColumn_B = cellblock(rootColumn, '1/2') // nests a column inside the root that is 1/2
+// create the root
+const rootColumn = cellblock();
 
-// updating width...
+// insert a 1/2 column into the root
+const childColumn_A = cellblock(rootColumn, '1/2');
+
+// insert another 1/2 column into the root
+const childColumn_B = cellblock(rootColumn, '1/2');
+
+// Example of changing a width...
 // update child B to be 1/3 (all descendants would also update)
 childColumn_B.setWidth('1/3'); 
 
-// getting width...
+// Example of getting width...
 // given a grid width and gutter size, retrieve child A's width
 
 const OUTER_WIDTH = 1280;
