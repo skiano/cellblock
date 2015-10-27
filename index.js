@@ -1,12 +1,5 @@
 
-function fractionToArray(f) {
-  f = f.split('/');
-  f[0] = parseInt(f[0]);
-  f[1] = parseInt(f[1]);
-  return f;
-}
-
-function makeColumn(rootCol, fraction) {
+module.exports = function makeColumn(rootCol, fraction) {
   rootCol = rootCol || {K: 1, G: 0, depth: 0, children: []};
   
   var col = {
@@ -45,43 +38,9 @@ function makeColumn(rootCol, fraction) {
   return col;
 }
 
-var a = makeColumn();
-  var a_a = makeColumn(a, '1/2');
-    var a_a_a = makeColumn(a_a);
-    var a_a_a_a = makeColumn(a_a_a, '1/2');
-    var a_a_a_b = makeColumn(a_a_a, '1/2');
-  var a_b = makeColumn(a, '1/2');
-    var a_b_a = makeColumn(a_b, '1/4');
-    var a_b_b = makeColumn(a_b, '3/4');
-
-
-
-
-
-var SCREEN = 1300;
-var GUTTER = 20;
-
-console.log();
-printTree(a, SCREEN, GUTTER);
-console.log();
-
-a_b.detach();
-
-console.log();
-printTree(a, SCREEN, GUTTER);
-console.log();
-
-// console.log(a.children[0].children)
-
-function printTree(col, viewport, gutter) {
-  console.log(' ',repeat('|-', col.depth) + col.getWidth(viewport, gutter))
-  col.children.forEach(function (child) {
-    printTree(child, viewport, gutter);
-  });
+function fractionToArray(f) {
+  f = f.split('/');
+  f[0] = parseInt(f[0]);
+  f[1] = parseInt(f[1]);
+  return f;
 }
-
-function repeat(char, n) {
-  return Array(n).join(char);
-}
-
-
