@@ -24,10 +24,10 @@ childColumn_B.setWidth('1/3');
 
 // Example of getting width...
 // given a grid width and gutter size, retrieve child A's width
-
 const OUTER_WIDTH = 1280;
 const GUTTER_WIDTH = 20;
 
 childColumn_A.getWidth(1280, 20); // returns (1280 - 20) / 2 => 640 (how wide)
 ```
 
+All the columns widths are stored as “relative” dimensions. In other words, I store how they relate to the size of the outer viewport and grid rather than a fixed dimension. This way its easy to ask for their exact size as the screen size changes, for example.
