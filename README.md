@@ -2,8 +2,6 @@
 
 A function to help you understand the relative size of columns in a grid.
 
-## Usage
-
 Without arguments, `cellblock()` returns a root column (the outer grid). When you create more columns you specify what column you want to insert them into like so `cellblock(targetColumn)`.
 
 All the column widths are stored as “relative” dimensions. In other words, I store how they relate to the size of the outer viewport and grid rather than a fixed dimension. This way its easy to ask for their exact size once you know those values (or ask again if they change).
