@@ -42,8 +42,9 @@ function makeColumn(rootCol, fraction) {
     rootCol.children.splice(rootCol.children.indexOf(col), 1);
   }
 
-  rootCol.children.push(col);
   col.setWidth(fraction);
+  rootCol.children.push(col);
+  
   return col;
 }
 
