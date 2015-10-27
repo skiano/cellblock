@@ -15,9 +15,9 @@ var a = cellblock();
 
 function printTree(col, viewport, gutter) {
   console.log(' ',repeat('|-', col.depth) + col.getWidth(viewport, gutter))
-  col.children.forEach(function (child) {
-    printTree(child, viewport, gutter);
-  });
+  for (child in col.children) {
+    printTree(col.children[child], viewport, gutter);
+  }
 }
 
 function repeat(char, n) {

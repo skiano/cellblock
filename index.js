@@ -1,12 +1,15 @@
 
+var initId = 0;
+
 module.exports = function makeColumn(rootCol, fraction) {
-  rootCol = rootCol || {K: 1, G: 0, depth: 0, children: []};
+  rootCol = rootCol || {K: 1, G: 0, depth: 0, children: {}};
   
   var col = {
     depth: rootCol.depth + 1, 
-    children: []
+    children: {}
   };
 
+  var id = initId++;
   var f;
 
   col.setWidth = function (fraction) {
@@ -20,9 +23,9 @@ module.exports = function makeColumn(rootCol, fraction) {
     col.updateWidth();
 
     if (col.children.length) {
-      col.children.map(function (child) {
-        child.updateWidth();
-      });
+      for (child in col.children) {
+        col.children[child].updateWidth();
+      }
     }
   }
 
@@ -30,16 +33,20 @@ module.exports = function makeColumn(rootCol, fraction) {
     return f;
   }
 
+  col.getId = function() {
+    return id;
+  }
+
   col.getWidth = function (viewport, gutter) {
     return (viewport * col.K) + (gutter * col.G);
   }
 
   col.detach = function () {
-    rootCol.children.splice(rootCol.children.indexOf(col), 1);
+    delete rootCol.children[id];
   }
 
   col.setWidth(fraction);
-  rootCol.children.push(col);
+  rootCol.children[id] = col;
 
   return col;
 }
