@@ -7,7 +7,7 @@ Without arguments, `cellblock()` returns a root column (the outer grid). When yo
 All the column widths are stored as “relative” dimensions. In other words, I store how they relate to the size of the outer viewport and grid rather than a fixed dimension. This way its easy to ask for their exact size once you know those values (or ask again if they change).
 
 ```js
-import cellblock from 'cellblock'
+import cellblock from 'cellblock';
 
 // create the root
 const rootColumn = cellblock();
