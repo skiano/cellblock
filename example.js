@@ -47,14 +47,16 @@ console.log();
 printTree(a, SCREEN, GUTTER);
 console.log();
 
-// // detatch part of the grid
+// detatch part of the grid
 
-// a_b.detach();
-// console.log('Detatched!\n');
+a_b.detach();
+console.log('Detatched!\n');
 
-// // print it again
+a_a_a.setWidth('1/2')
 
-// console.log();
-// printTree(a, SCREEN, GUTTER);
-// console.log();
+// print it again
+
+console.log();
+printTree(a, SCREEN, GUTTER);
+console.log();
 
