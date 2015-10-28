@@ -19,12 +19,6 @@ module.exports = function makeColumn(rootCol, fraction) {
     rawf = fraction;
 
     f = fractionToArray(fraction);
-
-    col.updateWidth = function () {
-      col.K = rootCol.K * f[0] / f[1];
-      col.G = (rootCol.G * f[0] / f[1]) + (f[0] / f[1]) - 1;
-    }
-    
     col.updateWidth();
 
     if (col.children.length) {
@@ -33,6 +27,11 @@ module.exports = function makeColumn(rootCol, fraction) {
         col.children[child].updateWidth();
       }
     }
+  }
+
+  col.updateWidth = function () {
+    col.K = rootCol.K * f[0] / f[1];
+    col.G = (rootCol.G * f[0] / f[1]) + (f[0] / f[1]) - 1;
   }
 
   col.getFraction = function () {
