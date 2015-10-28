@@ -10,10 +10,15 @@ module.exports = function makeColumn(rootCol, fraction) {
   };
 
   var id = initId++;
-  var f;
+  var rawf, f;
 
   col.setWidth = function (fraction) {
-    f = fractionToArray(fraction || '1/1');
+    fraction = fraction || '1/1';
+
+    if (fraction === rawf) return;
+    rawf = fraction;
+
+    f = fractionToArray(fraction);
 
     col.updateWidth = function () {
       col.K = rootCol.K * f[0] / f[1];
@@ -23,6 +28,7 @@ module.exports = function makeColumn(rootCol, fraction) {
     col.updateWidth();
 
     if (col.children.length) {
+      var child;
       for (child in col.children) {
         col.children[child].updateWidth();
       }
