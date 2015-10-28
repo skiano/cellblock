@@ -1,4 +1,3 @@
-
 var initId = 0;
 
 module.exports = function makeColumn(rootCol, fraction) {
